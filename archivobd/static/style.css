@@ -1,0 +1,22 @@
+body{
+
+    background-color: grey;
+    text-align: center;
+    display: block;
+    margin: auto 0;
+    
+}
+a{
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(190, 190, 190);
+    border-radius:10px ;
+    color: azure;
+}
+table{
+    background-color: rgb(68, 68, 68);
+    align-content: center;
+    margin: 10px;
+    padding: 10px;
+}

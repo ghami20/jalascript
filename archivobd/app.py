@@ -1,19 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import os
+from dotenv import load_dotenv
 
-mysql = MySQL()  # Crear instancia de MySQL fuera de create_app
+mysql = MySQL()
 
 def create_app():
     app = Flask(__name__)
 
-    # Configuración de MySQL usando variables de entorno
-    app.config["MYSQL_USER"] = os.getenv("MYSQL_USER", "u634693279_ghami")
-    app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD", "Ghami1234")
-    app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST", "srv1601.hstgr.io")
-    app.config["MYSQL_DB"] = os.getenv("MYSQL_DB", "u634693279_davinciguesser")
+    load_dotenv()
 
-    mysql.init_app(app)  # Inicializar MySQL con la aplicación
+    app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
+    app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
+    app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
+    app.config["MYSQL_DB"] = os.getenv("MYSQL_DB")
+
+    mysql.init_app(app) 
 
     @app.route('/')
     def index():
@@ -45,7 +47,5 @@ def create_app():
         return render_template('ver_usuarios.html', usuarios=usuarios)
 
     return app
-
-# Solo para desarrollo local
 if __name__ == '__main__':
     create_app().run(debug=True)
