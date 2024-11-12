@@ -2,25 +2,31 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ver Usuarios</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Lista de Usuarios</title>
 </head>
 <body>
     <h1>Usuarios Registrados</h1>
-    <table>
+    <table border="1">
         <tr>
             <th>Nombre</th>
             <th>Email</th>
             <th>Edad</th>
+            <th>Acciones</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
-            <td>{{ usuario[0] }}</td>
             <td>{{ usuario[1] }}</td>
             <td>{{ usuario[2] }}</td>
+            <td>{{ usuario[3] }}</td>
+            <td>
+                <a href="{{ url_for('editar_usuario', id=usuario[0]) }}">Editar</a>
+                <form action="{{ url_for('eliminar_usuario', id=usuario[0]) }}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <a href="{{ url_for('agregar_usuario_mysql') }}">Agregar otro usuario</a>
+    <a href="{{ url_for('index') }}">Volver al Inicio</a>
 </body>
 </html>
