@@ -48,20 +48,24 @@ def create_app():
     @app.route('/editar/<int:id>', methods=['GET', 'POST'])
     def editar_usuario(id):
         cursor = mysql.connection.cursor()
+        cursor.execute("SELECT nombre, email, edad FROM usuarios WHERE id = %s", (id,))
+        usuario = cursor.fetchone()
+        cursor.close()
+
         if request.method == 'POST':
             nombre = request.form['nombre']
             email = request.form['email']
             edad = int(request.form['edad'])
 
-            cursor.execute("UPDATE usuarios SET nombre = %s, email = %s, edad = %s WHERE id = %s", (nombre, email, edad, id))
+            # Actualizar el usuario en la base de datos
+            cursor = mysql.connection.cursor()
+            cursor.execute("UPDATE usuarios SET nombre = %s, email = %s, edad = %s WHERE id = %s",
+                        (nombre, email, edad, id))
             mysql.connection.commit()
             cursor.close()
 
-            return redirect(url_for('ver_usuarios'))
+            return redirect(url_for('ver_usuarios_mysql'))
 
-        cursor.execute("SELECT nombre, email, edad FROM usuarios WHERE id = %s", (id,))
-        usuario = cursor.fetchone()
-        cursor.close()
         return render_template('editar_usuario.html', usuario=usuario)
 
     @app.route('/eliminar/<int:id>', methods=['POST'])
