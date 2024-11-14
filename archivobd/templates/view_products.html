@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Ver Productos{% endblock %}
+
+{% block content %}
+    <h1>Productos Almacenados</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>${{ producto.precio }}</td>
+                <td>{{ producto.categoria }}</td>
+                <!-- Imagen dentro de la celda (td) -->
+                <td><img src="{{ producto.imagen }}" alt="Imagen de {{ producto.nombre }}" style="width: 150px; height: auto; max-width: 100%;"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

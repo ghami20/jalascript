@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Ver Datos{% endblock %}
+
+{% block content %}
+    <h1>Datos Almacenados</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in documents %}
+            <tr>
+                <td>{{ doc.name }}</td>
+                <td>{{ doc.age }}</td>
+                <td>
+                    <form action="/delete/{{ doc._id }}" method="post">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
